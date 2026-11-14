@@ -30,13 +30,6 @@ parse_dates = [
     "tpep_dropoff_datetime"
 ]
 
-df = pd.read_csv(
-    url,
-    nrows=100,
-    dtype=dtype,
-    parse_dates=parse_dates
-)
-
 def run():
 
     year = 2021 
@@ -51,7 +44,7 @@ def run():
     target_table = 'yeallow_taxi_data'
     prefix = 'https://github.com/DataTalksClub/nyc-tlc-data/releases/download/yellow/'
     url = f'{prefix}/yellow_tripdata_{year}-{month}.csv.gz'
-    engine = create_engine(f'postgresql://{pg_user}:{pg_pass}@{pg_host}:{port}/{pg_db}')
+    engine = create_engine(f'postgresql://{pg_user}:{pg_pass}@{pg_host}:{pg_port}/{pg_db}')
 
     df_iter = pd.read_csv(
         url,
@@ -63,7 +56,7 @@ def run():
     first = True
 
     for df_chunk in tqdm(df_iter):
-        if first == True
+        if first == True:
             df.head(0).to_sql(
                 name=target_table, 
                 con=engine, 
